@@ -187,6 +187,7 @@ if [ -n "$build" ]; then
     done
   fi
 
+  update-binfmts --enable
   docker buildx create --use
   docker buildx inspect --bootstrap
   docker buildx build \
