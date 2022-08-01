@@ -24,6 +24,7 @@ RUN set -e; \
 FROM ${base_image} AS resource
 RUN apk --no-cache add \
       bash \
+      curl \
       docker \
       jq \
       ca-certificates \
