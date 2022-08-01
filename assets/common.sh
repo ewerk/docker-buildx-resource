@@ -52,7 +52,11 @@ start_docker() {
   mkdir -p /var/run
 
   if [ "$SKIP_PRIVILEGED" = "false" ]; then
-    sanitize_cgroups
+    # temporary solution for making concourse builds runnable in Fedora CoreOS within OKD
+    # this is currently needed for our Ubuntu based workers
+    if [[ "$(uname -a)" == *"Ubuntu"* ]]; then
+      sanitize_cgroups
+    fi
 
     # check for /proc/sys being mounted readonly, as systemd does
     if grep '/proc/sys\s\+\w\+\s\+ro,' /proc/mounts >/dev/null; then
