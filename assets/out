@@ -67,6 +67,7 @@ build_args=$(jq -r '.params.build_args // {}' < $payload)
 build_args_file=$(jq -r '.params.build_args_file // ""' < $payload)
 labels=$(jq -r '.params.labels // {}' < $payload)
 labels_file=$(jq -r '.params.labels_file // ""' < $payload)
+buildx_driver_opts=$(jq -r '.params.buildx_driver_opts // ""' < $payload)
 buildx_platforms=$(jq -r '.params.buildx_platforms // "linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"' < $payload)
 
 tag_name=""
@@ -192,7 +193,7 @@ if [ -n "$build" ]; then
   # docker's built-in emulation (forked QEMU).
   docker run --rm --privileged linuxkit/binfmt:v0.8
 
-  docker buildx create --use
+  docker buildx create --use ${buildx_driver_opts}
   docker buildx inspect --bootstrap
   docker buildx build \
     --platform "${buildx_platforms}" \

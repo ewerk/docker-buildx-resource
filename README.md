@@ -183,6 +183,18 @@ version is the image's digest.
     CI_BUILD_ID: concourse-$BUILD_ID
   ```
 
+* `buildx_driver_opts`: *Optional.* Configure runtime parameters to pass to the buildx create call
+  like for example proxy settings.
+
+  Example:
+
+  ```yaml
+  buildx_driver_opts: "--driver-opt env.http_proxy=10.25.69.11:3128 --driver-opt env.https_proxy=10.25.69.11:3128 --driver-opt env.no_proxy=localhost"
+  ```
+
+* `buildx_platforms`: *Optional.* Comma separated string list of platforms to build. 
+  Defaults to `linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6`.
+
 * `build_args_file`: *Optional.* Path to a JSON file containing Docker
   build-time variables.
 
